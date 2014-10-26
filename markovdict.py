@@ -1,13 +1,18 @@
 from linkedwordlist import *
 import json
+import random
 
 class markovdict (object):
   def __init__(self, words):
     self.model = {}
     self.words = words
     self.pi = node(words[0])
+    self.lengths = []
 
     #populate model
+    for k in range(11):
+      self.lengths.append(k + 5)
+
     for i in range(len(words) - 1):
 
       #populate pi values
@@ -25,7 +30,8 @@ class markovdict (object):
     for elt in self.model:
       self.model[elt].calculate_prob()
 
-  def get_sentence (self, length):
+  def get_sentence (self):
+    length = random.choice(self.lengths)
     start = self.pi.choose()
     word = start
     for i in range(length):

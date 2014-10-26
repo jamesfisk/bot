@@ -1,4 +1,5 @@
 from __future__ import division
+import random
 
 class node (object):
   def __init__(self, word):
@@ -38,13 +39,26 @@ class node (object):
       head.prob = head.count / total
       head = head.nextw
     return
+  
+  def choose(self):
+    choice = random.random()
+    head = self
+    lower = 0.0
+    upper = 0.0
+    while (head.nextw != None):
+      upper += head.prob
+      if (choice > lower and choice <= upper):
+        return head.word
+      lower += head.prob
+      head = head.nextw
+    return head.word
 
   #Print a linked list
   def __str__(self):
     link_list = ""
     head = self
     while (head != None):
-      link_list += "(\"" + head.word + "\", " + str(head.count) + ", " + str(head.prob) + ") "
+      link_list += "(\"" + head.word + "\", " + str(head.count) + ", " + '%04.3f' % head.prob + ") "
       head = head.nextw
     return link_list
 
