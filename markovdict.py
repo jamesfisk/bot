@@ -14,7 +14,6 @@ class markovdict (object):
       self.lengths.append(k + 5)
 
     for i in range(len(words) - 1):
-
       #populate pi values
       if (i > 0):
         if (words[i - 1][-1] == "." and words[i].isalpha()):
@@ -23,7 +22,7 @@ class markovdict (object):
       if (words[i] not in self.model):
         self.model[words[i]] = node(words[i + 1])
       else:
-        self.model[words[i]].insert(words[i + 1])
+        self.model[words[i]] = self.model[words[i]].insert(words[i + 1])
 
     #run probabilities
     self.pi.calculate_prob()
